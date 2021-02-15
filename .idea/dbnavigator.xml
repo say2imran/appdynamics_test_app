@@ -32,7 +32,18 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ca518d4a-3270-4862-a55d-2fb865b9f9e2">
-      <console name="Connection" type="STANDARD" schema="main" session="Main" />
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT time('now') as "Current Time";
+SELECT time('now') as "Current Time";
+
+select time() as "Current Time",; 
+
+
+
+SELECT * FROM sqlite_master;
+ WHERE type ='table';
+
+
+SELECT name FROM sqlite_master WHERE type='table';]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

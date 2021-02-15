@@ -58,6 +58,26 @@ def failedFlow():
                                  "ReturnCode": 500})
 
 
+@app.get("/dbquery")
+def slowDb():
+    destination_api = getEnvVar("_DB_SERVICE") + "/dbquery"
+    print("destination_api: ", destination_api)
+    try:
+        response = requests.get(destination_api, verify=False)
+    except requests.exceptions.RequestException as e:
+        print("ERROR: Internal Service Error", "\n", "ERROR_DETAILS:", e)
+        return JSONResponse(status_code=500, content={"Error": "Internal Service Error"})
+
+    if response.status_code != 200:
+        print("ResponseCode:", response.status_code)
+        print("Error: ", response.text)
+        return JSONResponse(status_code=response.status_code,
+                            content={"Error": "From: " + destination_api + " ReturnCode: " + str(response.status_code)})
+
+    return JSONResponse(status_code=response.status_code,
+                        content={"response": response.json(), "ReturnCode": response.status_code})
+
+
 @app.get("/slowdb")
 def slowDb():
     destination_api = getEnvVar("_DB_SERVICE") + "/slowdbquery"

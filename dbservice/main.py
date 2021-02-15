@@ -44,16 +44,16 @@ def roundTrip():
 
 
 @app.get("/dbquery")
-def slowDb():
-    slow_query = """select """
+def dbQuery():
+    query = "SELECT time('now') as 'Current Time'"
     start_time = time.time()
     cursor = returnDbConnection().cursor()
-    cursor.execute(slow_query)
+    cursor.execute(query)
     output = cursor.fetchall()
     time_taken = time.time() - start_time
     print("Time taken by query: {}".format(time_taken))
     return JSONResponse(status_code=200,
-                        content={"time_taken": time_taken, "ReturnCode": 200})
+                        content={"time_taken": time_taken,"result": output, "ReturnCode": 200})
 
 
 @app.get("/slowdbquery")
